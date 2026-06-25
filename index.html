@@ -341,6 +341,44 @@
       white-space: nowrap;
     }
 
+    /* ── ABOUT SECTION ── */
+    .about-section {
+      padding: 88px 48px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .about-section .section-sub {
+      max-width: 680px;
+      margin: 0 auto 36px;
+      font-size: 15px;
+      color: var(--text-mid);
+      line-height: 1.85;
+      font-weight: 300;
+      text-align: center;
+    }
+
+    .about-section .section-sub strong { color: var(--graphite); font-weight: 600; }
+
+    .about-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: var(--khaki);
+      background: var(--khaki-pale);
+      border: 1px solid rgba(92,107,74,0.3);
+      padding: 5px 12px;
+      text-transform: uppercase;
+    }
+
     /* ── FILES SECTION ── */
     .files-section {
       padding: 88px 48px;
@@ -646,6 +684,29 @@
     <div class="scroll-hint">
       <div class="scroll-line"></div>
       <span>Scroll</span>
+    </div>
+  </section>
+
+  <div class="divider">
+    <div class="div-line"></div>
+    <span class="div-label">// INTEL BRIEF //</span>
+    <div class="div-line"></div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="about-section" id="about">
+    <p class="section-label">About the Channel</p>
+    <h2 class="section-title">The Machines History Buried</h2>
+    <p class="section-sub">My name is <strong>Lucas Sadlowsky</strong>. I'm a passionate enthusiast of 20th-century military history — specifically the classified engineering projects of WWII and the Cold War era that never made it to the battlefield. Redacted Arsenal is my attempt to unearth these forgotten blueprints — the steel giants, the engineering nightmares, the weapons that existed only on paper. Documentary-grade. No clickbait. Just history.</p>
+    <div class="about-tags">
+      <span class="tag">WWII Wunderwaffe</span>
+      <span class="tag">Cold War Black Projects</span>
+      <span class="tag">Soviet Engineering</span>
+      <span class="tag">Prototype Weapons</span>
+      <span class="tag">Alternate History</span>
+      <span class="tag">Armoured Warfare</span>
+      <span class="tag">Arms Race</span>
+      <span class="tag">Lost Blueprints</span>
     </div>
   </section>
 
