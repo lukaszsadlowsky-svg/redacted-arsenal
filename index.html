@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>REDACTED ARSENAL — Declassified Military History</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --black: #0a0a08;
+      --deep: #111210;
+      --surface: #181a17;
+      --khaki: #4a4d38;
+      --khaki-light: #6b6f52;
+      --parchment: #c9b99a;
+      --text: #d4cfc7;
+      --text-dim: #7a7670;
+      --red: #8b2220;
+      --red-bright: #b02a28;
+      --mono: 'Courier Prime', 'Courier New', monospace;
+      --sans: 'Inter', sans-serif;
+      --display: 'Bebas Neue', 'Impact', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 48px;
+      background: linear-gradient(to bottom, rgba(10,10,8,0.98) 0%, transparent 100%);
+      border-bottom: 1px solid rgba(74,77,56,0.2);
+    }
+    .nav-logo {
+      font-family: var(--mono); font-size: 13px; font-weight: 700;
+      color: var(--parchment); letter-spacing: 0.15em;
+      text-transform: uppercase; text-decoration: none;
+    }
+    .nav-logo span { color: var(--red-bright); }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--text-dim); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--parchment); }
+
+    /* ─── CLASSBAR ─── */
+    .classbar {
+      background: var(--red); padding: 6px 0; text-align: center;
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.4em;
+      color: rgba(255,255,255,0.9); text-transform: uppercase;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative; min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; text-align: center;
+      padding: 120px 24px 80px; overflow: hidden;
+    }
+    .hero::after {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(74,77,56,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(74,77,56,0.07) 1px, transparent 1px);
+      background-size: 48px 48px; pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-family: var(--mono); font-size: 11px; letter-spacing: 0.3em;
+      color: var(--khaki-light); text-transform: uppercase;
+      margin-bottom: 28px; position: relative; z-index: 2;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after { content: '//'; margin: 0 12px; opacity: 0.4; }
+    .hero-title {
+      font-family: var(--display); font-size: clamp(72px, 12vw, 160px);
+      line-height: 0.88; color: var(--parchment); letter-spacing: 0.05em;
+      position: relative; z-index: 2; text-shadow: 0 0 80px rgba(176,42,40,0.2);
+    }
+    .stamp {
+      position: relative; z-index: 2; display: inline-block; margin: 32px 0;
+      border: 3px solid var(--red-bright); padding: 8px 24px;
+      font-family: var(--display); font-size: 32px; letter-spacing: 0.2em;
+      color: var(--red-bright); transform: rotate(-3deg); opacity: 0;
+      animation: stampIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.8s forwards;
+      box-shadow: inset 0 0 0 1px rgba(176,42,40,0.3);
+    }
+    .stamp::before {
+      content: ''; position: absolute; inset: 3px;
+      border: 1px solid rgba(176,42,40,0.3);
+    }
+    @keyframes stampIn {
+      from { transform: rotate(-3deg) scale(1.4); opacity: 0; }
+      to   { transform: rotate(-3deg) scale(1); opacity: 0.85; }
+    }
+    .hero-sub {
+      font-family: var(--mono); font-size: 14px; color: var(--text-dim);
+      max-width: 540px; line-height: 1.8; position: relative; z-index: 2; margin-bottom: 48px;
+    }
+    .hero-sub em { color: var(--parchment); font-style: normal; }
+    .btn-group {
+      display: flex; gap: 16px; justify-content: center;
+      position: relative; z-index: 2; flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-block; background: var(--red); color: #fff;
+      font-family: var(--mono); font-size: 12px; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase; padding: 14px 32px;
+      text-decoration: none; transition: background 0.2s, transform 0.15s;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+    }
+    .btn-primary:hover { background: var(--red-bright); transform: translateY(-2px); }
+    .btn-outline {
+      display: inline-block; background: transparent; color: var(--parchment);
+      font-family: var(--mono); font-size: 12px; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase; padding: 13px 32px;
+      text-decoration: none; border: 1px solid var(--khaki);
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    }
+    .btn-outline:hover { border-color: var(--parchment); color: #fff; transform: translateY(-2px); }
+    .scroll-hint {
+      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+      z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px;
+    }
+    .scroll-hint span {
+      font-family: var(--mono); font-size: 9px; letter-spacing: 0.3em;
+      color: var(--text-dim); text-transform: uppercase;
+    }
+    .scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, var(--khaki-light), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.2); }
+    }
+
+    /* ─── DIVIDER ─── */
+    .divider {
+      display: flex; align-items: center; gap: 16px; padding: 0 48px;
+    }
+    .divider-line {
+      flex: 1; height: 1px;
+      background: linear-gradient(to right, transparent, var(--khaki), transparent);
+    }
+    .divider-icon {
+      font-family: var(--mono); font-size: 11px; color: var(--khaki-light);
+      letter-spacing: 0.2em; white-space: nowrap;
+    }
+
+    /* ─── SECTIONS ─── */
+    section { padding: 96px 48px; }
+
+    .section-label {
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.35em;
+      color: var(--red-bright); text-transform: uppercase; margin-bottom: 20px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .section-label::after {
+      content: ''; flex: 1; max-width: 64px; height: 1px;
+      background: var(--red-bright); opacity: 0.4;
+    }
+    .section-heading {
+      font-family: var(--display); font-size: clamp(36px, 5vw, 72px);
+      color: var(--parchment); line-height: 1; letter-spacing: 0.04em; margin-bottom: 32px;
+    }
+
+    /* ─── ABOUT ─── */
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      align-items: start; max-width: 1100px; margin: 0 auto;
+    }
+    .about-text p { color: var(--text); font-size: 15px; line-height: 1.85; margin-bottom: 20px; }
+    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--khaki); }
+    .stat-box { background: var(--surface); padding: 32px 24px; text-align: center; }
+    .stat-num { font-family: var(--display); font-size: 52px; color: var(--parchment); line-height: 1; display: block; }
+    .stat-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.25em; color: var(--text-dim); text-transform: uppercase; margin-top: 8px; display: block; }
+    .topics { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
+    .topic-tag { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; color: var(--khaki-light); border: 1px solid var(--khaki); padding: 5px 12px; text-transform: uppercase; }
+
+    /* ─── EPISODES ─── */
+    .episodes-section { background: var(--deep); }
+    .episodes-header { max-width: 1100px; margin: 0 auto 48px; }
+
+    .episodes-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2px; background: var(--khaki);
+    }
+
+    /* Loading state */
+    .episodes-loading {
+      max-width: 1100px; margin: 0 auto;
+      font-family: var(--mono); font-size: 12px;
+      color: var(--text-dim); letter-spacing: 0.2em; padding: 32px 0;
+    }
+
+    .episode-card {
+      background: var(--surface); padding: 32px 28px; text-decoration: none;
+      display: block; position: relative; overflow: hidden; transition: background 0.2s;
+    }
+    .episode-card:hover { background: #1e201c; }
+    .episode-card::before {
+      content: ''; position: absolute; top: 0; left: 0;
+      width: 3px; height: 0; background: var(--red-bright); transition: height 0.3s ease;
+    }
+    .episode-card:hover::before { height: 100%; }
+
+    .ep-num {
+      font-family: var(--mono); font-size: 10px; color: var(--text-dim);
+      letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 16px;
+    }
+    .ep-title {
+      font-family: var(--display); font-size: 26px; color: var(--parchment);
+      line-height: 1.1; letter-spacing: 0.04em; margin-bottom: 12px;
+    }
+    .ep-desc { font-family: var(--mono); font-size: 12px; color: var(--text-dim); line-height: 1.7; }
+
+    .ep-actions {
+      display: flex; gap: 12px; margin-top: 20px; align-items: center;
+    }
+
+    .ep-btn-watch {
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--parchment); text-decoration: none;
+      border: 1px solid var(--khaki); padding: 6px 14px;
+      transition: border-color 0.2s, color 0.2s; white-space: nowrap;
+    }
+    .ep-btn-watch:hover { border-color: var(--parchment); color: #fff; }
+
+    .ep-btn-pdf {
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: #fff; text-decoration: none;
+      background: var(--red); padding: 6px 14px;
+      transition: background 0.2s; white-space: nowrap;
+      clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+    }
+    .ep-btn-pdf:hover { background: var(--red-bright); }
+
+    /* ─── WHAT IF ─── */
+    .whatif-section {
+      background: var(--black); text-align: center;
+      border-top: 1px solid rgba(74,77,56,0.2);
+      border-bottom: 1px solid rgba(74,77,56,0.2);
+    }
+    .whatif-inner { max-width: 720px; margin: 0 auto; }
+    .whatif-quote {
+      font-family: var(--mono); font-size: clamp(18px, 2.5vw, 24px);
+      color: var(--parchment); line-height: 1.6; font-style: italic;
+      margin-bottom: 24px; position: relative;
+    }
+    .whatif-quote::before {
+      content: '"'; font-family: var(--display); font-size: 120px;
+      color: rgba(176,42,40,0.12); position: absolute; top: -40px; left: -20px;
+      line-height: 1; z-index: 0;
+    }
+    .whatif-quote span { position: relative; z-index: 1; }
+    .whatif-attr { font-family: var(--mono); font-size: 11px; color: var(--text-dim); letter-spacing: 0.2em; }
+
+    /* ─── SUBSCRIBE ─── */
+    .subscribe-section { background: var(--surface); text-align: center; }
+    .subscribe-inner { max-width: 560px; margin: 0 auto; }
+    .subscribe-section .section-label { justify-content: center; }
+    .subscribe-section .section-label::after { display: none; }
+    .subscribe-section .section-label::before {
+      content: ''; max-width: 64px; height: 1px;
+      background: var(--red-bright); opacity: 0.4;
+    }
+    .subscribe-section p {
+      font-family: var(--mono); font-size: 13px;
+      color: var(--text-dim); line-height: 1.8; margin-bottom: 40px;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 32px 48px; border-top: 1px solid rgba(74,77,56,0.2);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-logo { font-family: var(--mono); font-size: 12px; color: var(--text-dim); letter-spacing: 0.15em; }
+    .footer-disclaimer { font-family: var(--mono); font-size: 10px; color: var(--khaki); letter-spacing: 0.1em; max-width: 480px; text-align: center; }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-family: var(--mono); font-size: 11px; color: var(--text-dim); text-decoration: none; letter-spacing: 0.15em; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--parchment); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      section { padding: 64px 20px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      footer { flex-direction: column; text-align: center; }
+      .footer-disclaimer { text-align: center; }
+      .divider { padding: 0 20px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .stamp { animation: none; opacity: 0.85; }
+      .scroll-line { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="classbar">⬛ TOP SECRET // DECLASSIFIED ⬛</div>
+
+  <nav>
+    <a href="#" class="nav-logo"><span>//</span> Redacted Arsenal</a>
+    <ul class="nav-links">
+      <li><a href="#about">Intel</a></li>
+      <li><a href="#episodes">Files</a></li>
+      <li><a href="#subscribe">Subscribe</a></li>
+      <li><a href="https://www.youtube.com/@RedactedArsenal" target="_blank">YouTube ↗</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <p class="hero-eyebrow">File status: Declassified — Est. 2024</p>
+    <h1 class="hero-title">REDACTED<br>ARSENAL</h1>
+    <div class="stamp">DECLASSIFIED</div>
+    <p class="hero-sub">
+      The archive of history's most <em>classified</em> and ambitious military engineering projects.
+      Deep dives into the blueprints that were never meant to be seen.
+    </p>
+    <div class="btn-group">
+      <a href="https://www.youtube.com/@RedactedArsenal" target="_blank" class="btn-primary">Access the Archive</a>
+      <a href="#episodes" class="btn-outline">Browse Files</a>
+    </div>
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <span class="divider-icon">// INTEL BRIEF //</span>
+    <div class="divider-line"></div>
+  </div>
+
+  <section id="about">
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="section-label">About the Channel</p>
+        <h2 class="section-heading">THE MACHINES HISTORY BURIED</h2>
+        <p>Redacted Arsenal unearths weapon prototypes that never reached the battlefield — engineering nightmares, classified Cold War programmes, and the steel giants that existed only on paper. We go beyond dry technical specs.</p>
+        <p>Every episode explores the engineering context, the political pressures, and the ultimate question: <em>what if these machines had actually made it to the frontlines?</em></p>
+        <div class="topics">
+          <span class="topic-tag">WWII Wunderwaffe</span>
+          <span class="topic-tag">Cold War Black Projects</span>
+          <span class="topic-tag">Soviet Engineering</span>
+          <span class="topic-tag">Prototype Weapons</span>
+          <span class="topic-tag">Alternate History</span>
+          <span class="topic-tag">Armoured Warfare</span>
+          <span class="topic-tag">Arms Race</span>
+          <span class="topic-tag">Lost Blueprints</span>
+        </div>
+      </div>
+      <div>
+        <div class="about-stats">
+          <div class="stat-box"><span class="stat-num">20+</span><span class="stat-label">Min. per episode</span></div>
+          <div class="stat-box"><span class="stat-num">100%</span><span class="stat-label">Declassified content</span></div>
+          <div class="stat-box"><span class="stat-num">WWII</span><span class="stat-label">to Cold War era</span></div>
+          <div class="stat-box"><span class="stat-num">0</span><span class="stat-label">Blueprints provided</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <span class="divider-icon">// CASE FILES //</span>
+    <div class="divider-line"></div>
+  </div>
+
+  <section class="episodes-section" id="episodes">
+    <div class="episodes-header">
+      <p class="section-label">Declassified Files</p>
+      <h2 class="section-heading">RECENT INTEL</h2>
+    </div>
+    <div class="episodes-grid" id="episodes-grid">
+      <p class="episodes-loading">// Loading files...</p>
+    </div>
+  </section>
+
+  <section class="whatif-section">
+    <div class="whatif-inner">
+      <p class="section-label" style="justify-content:center;">// What If Scenarios</p>
+      <blockquote class="whatif-quote">
+        <span>What if the Ratte had rolled across the French countryside?
+        What if the Goliath had changed the outcome in Warsaw?
+        History is written by the victors — we file the blueprints of the defeated.</span>
+      </blockquote>
+      <p class="whatif-attr">— REDACTED ARSENAL // MISSION STATEMENT</p>
+    </div>
+  </section>
+
+  <section class="subscribe-section" id="subscribe">
+    <div class="subscribe-inner">
+      <p class="section-label">Access Granted</p>
+      <h2 class="section-heading">JOIN THE ARCHIVE</h2>
+      <p>New files declassified regularly. Subscribe to receive intelligence briefings on the weapon prototypes, engineering disasters, and classified projects that shaped — or failed to shape — the 20th century.</p>
+      <div class="btn-group">
+        <a href="https://www.youtube.com/@RedactedArsenal?sub_confirmation=1" target="_blank" class="btn-primary">Subscribe on YouTube</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">// REDACTED ARSENAL — EDUCATIONAL HISTORY</div>
+    <p class="footer-disclaimer">⚠ This channel is strictly educational. No blueprints, instructions, or tutorials on the manufacture of firearms, explosives, or dangerous materials are provided. All content is for entertainment and historical education only.</p>
+    <div class="footer-links">
+      <a href="https://www.youtube.com/@RedactedArsenal" target="_blank">YouTube</a>
+    </div>
+  </footer>
+
+  <script>
+    // Load episodes from data.json and render cards
+    async function loadEpisodes() {
+      const grid = document.getElementById('episodes-grid');
+
+      try {
+        const res = await fetch('data.json');
+        if (!res.ok) throw new Error('Could not load data.json');
+        const data = await res.json();
+
+        if (!data.episodes || data.episodes.length === 0) {
+          grid.innerHTML = '<p class="episodes-loading">// No files declassified yet.</p>';
+          return;
+        }
+
+        grid.innerHTML = '';
+        // Show newest first (reverse order)
+        const episodes = [...data.episodes].reverse();
+
+        episodes.forEach(ep => {
+          const card = document.createElement('div');
+          card.className = 'episode-card';
+
+          const hasPdf = ep.pdf && ep.pdf.trim() !== '';
+          const hasYoutube = ep.youtube && ep.youtube.trim() !== '';
+
+          card.innerHTML = `
+            <p class="ep-num">${ep.num} — ${ep.era}</p>
+            <h3 class="ep-title">${ep.title}</h3>
+            <p class="ep-desc">${ep.desc}</p>
+            <div class="ep-actions">
+              ${hasYoutube ? `<a class="ep-btn-watch" href="${ep.youtube}" target="_blank">▶ Watch</a>` : ''}
+              ${hasPdf ? `<a class="ep-btn-pdf" href="${ep.pdf}" target="_blank" download>⬇ Dossier PDF</a>` : ''}
+            </div>
+          `;
+
+          grid.appendChild(card);
+        });
+
+      } catch (err) {
+        grid.innerHTML = '<p class="episodes-loading">// Error loading files. Check data.json.</p>';
+        console.error(err);
+      }
+    }
+
+    loadEpisodes();
+  </script>
+
+</body>
+</html>

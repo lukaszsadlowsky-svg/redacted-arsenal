@@ -1,0 +1,52 @@
+{
+  "episodes": [
+    {
+      "num": "File #001",
+      "era": "WWII / Germany",
+      "title": "Panzer VIII Maus",
+      "desc": "The heaviest tank ever built. 188 tonnes of steel ambition that never fired a single shot in anger.",
+      "youtube": "https://www.youtube.com/@RedactedArsenal",
+      "pdf": ""
+    },
+    {
+      "num": "File #002",
+      "era": "WWII / Germany",
+      "title": "Landkreuzer P.1000 Ratte",
+      "desc": "A thousand-tonne land battleship. The most absurd engineering fantasy the Third Reich ever committed to paper.",
+      "youtube": "https://www.youtube.com/@RedactedArsenal",
+      "pdf": ""
+    },
+    {
+      "num": "File #003",
+      "era": "WWII / Poland",
+      "title": "Karabin wz. 35",
+      "desc": "Poland's secret anti-tank rifle — so effective its existence was classified by the very army that built it.",
+      "youtube": "https://www.youtube.com/@RedactedArsenal",
+      "pdf": ""
+    },
+    {
+      "num": "File #004",
+      "era": "WWII / USA",
+      "title": "T28 / T95 Super Heavy Tank",
+      "desc": "America's answer to the Siegfried Line — a 95-tonne fortress on tracks that arrived too late for the war it was built to win.",
+      "youtube": "https://www.youtube.com/@RedactedArsenal",
+      "pdf": ""
+    },
+    {
+      "num": "File #005",
+      "era": "Cold War / USSR",
+      "title": "Object 279",
+      "desc": "Designed to survive a nuclear blast and keep fighting. The Soviet heavy tank that made every NATO commander nervous.",
+      "youtube": "https://www.youtube.com/@RedactedArsenal",
+      "pdf": ""
+    },
+    {
+      "num": "File #006",
+      "era": "WWII / Germany",
+      "title": "Goliath — Tracked Mine",
+      "desc": "The remote-controlled demolition vehicle that preceded the drone age by eighty years. First deployed during the Warsaw Uprising.",
+      "youtube": "https://www.youtube.com/@RedactedArsenal",
+      "pdf": ""
+    }
+  ]
+}
