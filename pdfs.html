@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Free downloadable dossiers and companion PDFs for Redacted Arsenal episodes.">
+  <meta name="theme-color" content="#f1efe9">
+  <meta property="og:title" content="Redacted Arsenal — PDF Library">
+  <meta property="og:description" content="Declassified files: free dossiers and companion PDFs for every episode.">
+  <meta property="og:url" content="https://lukaszsadlowsky-svg.github.io/redacted-arsenal/pdfs.html">
+  <meta property="og:image" content="https://lukaszsadlowsky-svg.github.io/redacted-arsenal/assets/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <title>PDF Library — Redacted Arsenal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .libTop{padding:34px 0 0}
+    .backLink{display:inline-block;margin-top:20px;color:var(--orange);text-decoration:none;text-transform:uppercase;font-weight:800;font-size:14px}
+    .backLink:hover,.backLink:focus-visible{text-decoration:underline;outline:none}
+    .libHead{padding:44px 0 34px}
+    .libHead .eyebrow{display:inline-block;border:1px dashed var(--orange);color:var(--orange);text-transform:uppercase;font-weight:800;font-size:13px;letter-spacing:.14em;padding:5px 12px}
+    .libHead h1{font:800 clamp(44px,5vw,64px)/1 'Barlow Condensed',sans-serif;text-transform:uppercase;margin:18px 0 0}
+    .libHead p{max-width:560px;font-size:17px}
+    .libSearch{display:none;margin:0 0 22px}
+    .libSearch input{width:min(100%,420px);padding:12px 14px;border:1px solid var(--line);background:#fff;font:15px Inter,Arial,sans-serif;color:var(--ink)}
+    .libSearch input:focus-visible{outline:2px solid var(--orange);outline-offset:-1px}
+    .lib{background:#f7f5f0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:34px 0 46px}
+    .fileRow{display:grid;grid-template-columns:auto 1fr auto;gap:26px;align-items:center;background:#fff;border:1px solid var(--line);border-left:4px solid var(--olive);padding:20px 24px;margin-bottom:14px;transition:transform .18s,border-color .18s}
+    .fileRow:hover{transform:translateY(-2px);border-left-color:var(--orange)}
+    .fileNo{font:800 22px/1 'Barlow Condensed',sans-serif;color:var(--orange);letter-spacing:.04em;white-space:nowrap}
+    .fileInfo h2{font:800 24px/1.05 'Barlow Condensed',sans-serif;text-transform:uppercase;color:var(--olive);margin:0 0 6px}
+    .fileMeta{font-size:13px;color:#666;text-transform:uppercase;letter-spacing:.06em}
+    .fileMeta span+span:before{content:"//";margin:0 8px;color:var(--orange)}
+    .fileDesc{margin:8px 0 0;font-size:15px;max-width:640px}
+    .dlBtn{display:inline-block;background:var(--olive);color:#f1efe9;text-decoration:none;text-transform:uppercase;font-weight:800;font-size:14px;letter-spacing:.06em;padding:13px 22px;white-space:nowrap;transition:background .18s}
+    .dlBtn:hover,.dlBtn:focus-visible{background:var(--orange);outline:none}
+    .libNote{padding:40px 0;text-align:center}
+    .libNote strong{display:block;font:800 26px/1 'Barlow Condensed',sans-serif;text-transform:uppercase;color:var(--olive);margin-bottom:10px}
+    .libNote p{color:#555;max-width:480px;margin:0 auto}
+    @media(max-width:700px){
+      .fileRow{grid-template-columns:1fr;gap:12px;padding:18px}
+      .dlBtn{justify-self:start}
+    }
+  </style>
+</head>
+<body>
+<div class="wrap libTop">
+  <a class="logo" href="index.html"><b>REDACTED</b><b>ARSENAL</b></a><br>
+  <a class="backLink" href="index.html">← Back to base</a>
+</div>
+<main>
+  <header class="wrap libHead">
+    <span class="eyebrow">Declassified files</span>
+    <h1>PDF <span style="color:var(--orange)">Library</span></h1>
+    <i class="rule" aria-hidden="true"></i>
+    <p>Free companion dossiers, reference sheets and in-depth studies created for Redacted Arsenal episodes. Click a file to download it.</p>
+  </header>
+  <section class="lib" aria-label="Downloadable dossiers">
+    <div class="wrap">
+      <div class="libSearch"><input type="search" id="libFilter" placeholder="Search dossiers…" aria-label="Search dossiers"></div>
+      <div id="libList"></div>
+      <div class="libNote" id="libEmpty" hidden>
+        <strong>Files being declassified</strong>
+        <p>The first dossiers are in preparation and will appear here soon. In the meantime, new episodes are waiting on the YouTube channel.</p>
+      </div>
+      <div class="libNote" id="libError" hidden>
+        <strong>List unavailable</strong>
+        <p>The dossier list could not be loaded. If you opened this file directly from disk, the list only loads on the live website.</p>
+      </div>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap foot"><div class="footBrand"><strong>REDACTED<br>ARSENAL</strong><p>Experimental weapons.<br>Forgotten machines.<br>Untold history.</p></div><p>© 2026 Redacted Arsenal. All rights reserved.<br>This site is for educational and historical purposes only.</p></div></footer>
+<script>
+(async () => {
+  const list = document.getElementById('libList');
+  const empty = document.getElementById('libEmpty');
+  const errBox = document.getElementById('libError');
+  const searchWrap = document.querySelector('.libSearch');
+  let items = [];
+  try {
+    const res = await fetch('pdfs.json', {cache:'no-cache'});
+    if (!res.ok) throw new Error(res.status);
+    items = await res.json();
+  } catch (e) {
+    errBox.hidden = false;
+    return;
+  }
+  if (!Array.isArray(items) || items.length === 0) { empty.hidden = false; return; }
+
+  const fmtSize = b => b >= 1048576 ? (b/1048576).toFixed(1)+' MB' : Math.max(1,Math.round(b/1024))+' KB';
+
+  items.forEach((it, i) => {
+    const row = document.createElement('article');
+    row.className = 'fileRow';
+    const no = document.createElement('div');
+    no.className = 'fileNo';
+    no.textContent = 'RA-' + String(items.length - i).padStart(3,'0');
+    const info = document.createElement('div');
+    info.className = 'fileInfo';
+    const h = document.createElement('h2');
+    h.textContent = it.title || it.file;
+    const meta = document.createElement('div');
+    meta.className = 'fileMeta';
+    const mParts = [];
+    if (it.tag) mParts.push(it.tag);
+    mParts.push('PDF');
+    const sizeSpan = document.createElement('span');
+    meta.append(...mParts.map(t => { const s=document.createElement('span'); s.textContent=t; return s; }), sizeSpan);
+    info.append(h, meta);
+    if (it.desc) { const d=document.createElement('p'); d.className='fileDesc'; d.textContent=it.desc; info.append(d); }
+    const a = document.createElement('a');
+    a.className = 'dlBtn';
+    a.href = 'pdfs/' + it.file;
+    a.setAttribute('download','');
+    a.textContent = 'Download ↓';
+    row.append(no, info, a);
+    row.dataset.search = ((it.title||'')+' '+(it.tag||'')+' '+(it.desc||'')+' '+it.file).toLowerCase();
+    list.append(row);
+    fetch('pdfs/' + it.file, {method:'HEAD'}).then(r => {
+      const len = r.headers.get('content-length');
+      if (r.ok && len) sizeSpan.textContent = fmtSize(+len);
+      else if (!r.ok) a.style.opacity = .45;
+    }).catch(()=>{});
+  });
+
+  if (items.length > 6) {
+    searchWrap.style.display = 'block';
+    const input = document.getElementById('libFilter');
+    input.addEventListener('input', () => {
+      const q = input.value.trim().toLowerCase();
+      let visible = 0;
+      list.querySelectorAll('.fileRow').forEach(r => {
+        const show = !q || r.dataset.search.includes(q);
+        r.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+    });
+  }
+})();
+</script>
+</body>
+</html>
