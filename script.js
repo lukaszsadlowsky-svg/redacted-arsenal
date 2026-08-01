@@ -1,0 +1,1 @@
+document.getElementById('downloads').onclick=()=>{const t=document.querySelector('.toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)};
