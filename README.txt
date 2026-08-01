@@ -17,7 +17,7 @@ V3.2 correction: replaced the clipped YouTube artwork with a clean red YouTube p
 
 V3.3 corrections (cosmetic pass):
 - Added favicon (assets/favicon.svg) in the brand style.
-- Added og:image (assets/og-image.jpg, 1200x630) plus og:url and twitter:card meta tags. IMPORTANT: replace YOUR-USERNAME in index.html with the real GitHub Pages address after deployment, otherwise link previews will not work.
+- Added og:image (assets/og-image.jpg, 1200x630) plus og:url and twitter:card meta tags. og:url and og:image point to https://lukaszsadlowsky-svg.github.io/redacted-arsenal/ — already filled in.
 - Hero image: cropped the leftover clipped letter from the left edge of maus-hero.webp.
 - Profile photo: fake sea coordinates replaced with an on-brand [ REDACTED ] bar.
 - Buy Me a Coffee tile copy reworded (concrete benefit instead of thanking in advance).
